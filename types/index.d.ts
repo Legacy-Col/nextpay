@@ -10,5 +10,9 @@ declare interface HeaderBoxProps {
 declare interface BalanceBoxProps {
     accounts: Array
     totalBanks: number
-    totalCurrentBalance: Number
+    totalCurrentBalance: number
+}
+
+declare interface DoughnutChartProps {
+    accounts: Array
 }

@@ -8,19 +8,21 @@ const Home = () => {
   }
   return (
     <section className='home'>
-        <header className='home-content'>
+      <div className='home-content'>
+        <header className='home-header'>
           <HeaderBox
             type="greeting"
             title="Welcome"
             user={loggedIn?.firstName || 'Guest'}
             subText="View as well as Manage the funds in your account and trasactions"
           />  
-        <BalanceBox
-          accounts={[]}
-          totalBanks={1}
-          totalCurrentBalance={1250}
-        />
+          <BalanceBox
+            accounts={[]}
+            totalBanks={1}
+            totalCurrentBalance={1250.45}
+          />
         </header>
+      </div>
     </section>
   );
 }

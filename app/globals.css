@@ -64,9 +64,14 @@
     @apply text-3xl lg:text-4xl flex-1 font-semibold text-gray-900;
 }
 
+/* .sidebar {
+    @apply sticky left-0 top-0 flex h-screen w-fit flex-col justify-between border-r border-gray-200 bg-white pt-8 text-neutral-700 max-md:hidden sm:p-4 xl:p-6 2xl:w-[355px]; */
+
 .sidebar {
-    @apply sticky left-0 top-0 flex h-screen w-fit flex-col justify-between border-r border-gray-200 bg-white pt-8 text-neutral-700 max-md:hidden sm:p-4 xl:p-6 2xl:w-[355px];
+    @apply sticky left-0 top-0 flex h-screen w-fit flex-col justify-between border-r border-neutral-200 bg-white pt-8 text-neutral-800 max-md:hidden p-4 xl:p-6 2xl:w-[355px];
 }
+
+
 
 /* .sidebar-label{
     @apply text-2xl font-semibold text-black max-xl:hidden;

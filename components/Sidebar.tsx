@@ -27,12 +27,12 @@ const Sidebar = ({user} : SiderBarProps) => {
               </Link>
 
               {sidebarLinks.map((item) => {
-                  const isActive = pathname === item.route || pathname.startsWith(`${item.route}`)
+                  const isActive = pathname === item.route || pathname.startsWith(`${item.route}/`)
                   return (
                       <Link
                           href={item.route}
                           key={item.label}
-                          className={cn ('flex items-center justify-center gap-3 p-3 group relative', {"bg-blue-500 text-neutral-800 rounded-lg p-4" : isActive})}
+                          className={cn ('flex items-center justify-start gap-3 p-3 group relative', {"bg-blue-500 text-neutral-800 rounded-lg p-4" : isActive})}
                       >
                           <Image
                               src={item.imgURL}

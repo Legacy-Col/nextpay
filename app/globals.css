@@ -5,13 +5,13 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-    --color-LightGray: #E5E7EB;
-    --color-CoolBlue: #f0f6fC;
-    --color-PaleBiege: #FAF3E0;
     --color-navy: #211C84;
     --color-navysky: #4D55CC;
     --color-coldsky: #7A73D1;
     --color-lightnavy: #B5A8D5;
+    --color-yellow: rgb(255, 178, 0);
+    --color-yellowred: rgb(182, 0, 113);
+    --color-sunsetyellow: rgb(247, 197, 102);
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -204,11 +204,15 @@
 
          /* Bank Card */
     .bank-card {
-        @apply relative flex h-[190px] w-full max-w-[320px] justify-between rounded-[20px] border border-neutral-800 bg-gradient-to-r from-amber-600 to-amber-800 via-amber-950 shadow-md shadow-neutral-700 backdrop-blur-[6px];
+        @apply relative flex h-[190px] w-full max-w-[300px] justify-between rounded-[20px] border border-neutral-200 bg-gradient-to-r from-amber-600 to-amber-800 via-amber-950 shadow-md shadow-neutral-700 backdrop-blur-[6px];
     }
 
     .bank-card_content {
-        @apply relative z-10 flex size-full max-w-[228px] flex-col justify-between rounded-l-[20px] bg-gray-700 bg-gradient-to-l from-neutral-900 to-blue-900 via-neutral-800 px-5 pb-4 pt-5;
+        @apply relative z-10 flex size-full max-w-[228px] flex-col justify-between rounded-l-[20px] bg-gradient-to-l from-neutral-700 to-gray-600 via-slate-900  px-8 pb-4 pt-5;
+    }
+
+    .bank-card-icon {
+        @apply flex justify-between flex-col flex-1 items-end rounded-r-[80px] size-full bg-gradient-to-bl from-yellow to-yellowred via-sunsetyellow;
     }
     
         /* My Banks */

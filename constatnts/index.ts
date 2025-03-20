@@ -11,12 +11,12 @@ export const sidebarLinks = [
   },
   {
     imgURL: "/icons/transfer.png",
-    route: "/transaction-history",
+    route: "/transactions",
     label: "Transaction History",
   },
   {
     imgURL: "/icons/exchange.png",
-    route: "/payment-transfer",
+    route: "/transfers",
     label: "Transfer Funds",
   },
 ];

@@ -32,8 +32,16 @@ const Sidebar = ({user} : SiderBarProps) => {
                       <Link
                           href={item.route}
                           key={item.label}
-                          className=''
+                          className={cn ('flex items-center justify-center gap-3 p-3 group relative', {"bg-blue-500 text-neutral-800 rounded-lg p-4" : isActive})}
                       >
+                          <Image
+                              src={item.imgURL}
+                              alt={item.label}
+                              width={30}
+                              height={30}
+                              className=''
+                          />
+                          <p className='sidebar-label text-1xl'>{ item.label}</p>
                       </Link>
                   )
               })

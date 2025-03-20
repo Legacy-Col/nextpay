@@ -3,6 +3,7 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { DoughnutChartProps } from '@/types';
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
@@ -25,7 +26,6 @@ const DoughnutChart = ({accounts}: DoughnutChartProps) => {
     }]
   }
   return (
-      <div className='flex flex-col items-center gap-2 text-3xl'>
       <Doughnut
         data={data}
         options={{
@@ -37,7 +37,6 @@ const DoughnutChart = ({accounts}: DoughnutChartProps) => {
           }
         }}
       />
-      </div>
   );
 }
 

@@ -1,4 +1,5 @@
 import { Stringifiable } from "query-string";
+import { string } from "zod";
 
 
 declare interface HeaderBoxProps {
@@ -28,10 +29,12 @@ declare type User = {
     firstName: string;
     lastName: string;
     address: string;
+    name: string;
     city: string;
     state: string;
     postaCode: string;
     dateOfBirth: string;
+    avatar?: string;
 }
 
 declare interface MobileMenuProps  {
@@ -48,4 +51,27 @@ declare interface CreditCardProps {
     account: Array
     userName: string
     showBalance: boolean
+}
+
+declare type SignUpParams = {
+    $id?: string;
+    firstName?: string;
+    lastName?: string;
+    address?: string;
+    city?: string;
+    state?: string;
+    postaCode?: string;
+    dateOfBirth?: string;
+    email: string; 
+    password: string;
+}
+
+declare interface SignInProps {
+    email: string
+    password: string
+}
+
+declare type AuthContextType = {
+    user: User
+    signup: (email: string, password: string) => Promise<void>;
 }

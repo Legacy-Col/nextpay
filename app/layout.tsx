@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
 
 const montserratSans = Montserrat({
   variable: "--font-monserrat-sans-serif",
@@ -30,7 +31,9 @@ export default function RootLayout({
       <body
         className={`${montserratSans.variable} ${interSans.variable} antialiased`}
       >
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

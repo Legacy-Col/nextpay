@@ -7,7 +7,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
 
 
 import { z } from "zod"
@@ -15,13 +14,14 @@ import CustomForm from "./CustomForm";
 import { authformSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import {  getLoggedInUser, signIn, signUp } from "@/lib/actions/user.actions";
+import { useAuth } from "@/context/AuthContext";
 
 
 
   
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter()
+  const { SignIn, SignUp } = useAuth();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false)
   
@@ -36,13 +36,20 @@ const AuthForm = ({ type }: { type: string }) => {
     },
   })
 
-const onSubmit = async (data: z.infer<typeof formSchema>) => {
-  setIsLoading(true);
-  console.log(data);
-  setIsLoading(false);
-
-
-}
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
+    if (type === 'sign-up') {
+      await SignUp(data.email, data.password).then(() => { setIsLoading(false);
+        }).catch(() => {
+      setIsLoading(false);
+      })
+    } else {
+      await SignIn(data.email, data.password).then(() => { setIsLoading(false); }).catch(() => {
+          setIsLoading(false)
+      })
+    }
+  };
+  
   return (
     <section className="auth-form">
       <header className="flex flex-col gap-5 md:gap-8">
@@ -98,10 +105,10 @@ const onSubmit = async (data: z.infer<typeof formSchema>) => {
                   />
                   <div className="flex gap-2">
                     <CustomForm 
-                      control={form.control} name='dateofbirth' label='DOB' placeholder="YYYY / MM / DD"   
+                      control={form.control} name='dateOfBirth' label='DOB' placeholder="YYYY / MM / DD"   
                     />
                     <CustomForm 
-                      control={form.control} name='stateoforigin' label='SOO' placeholder="State"   
+                      control={form.control} name='stateOfOrigin' label='SOO' placeholder="State"   
                     />
                   </div>
                   <div className="flex gap-2">

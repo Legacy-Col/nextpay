@@ -39,3 +39,6 @@ export const authformSchema = (type: string) => z.object({
   BVN: type === 'sign-in' ? z.string().optional() : z.string().min(3),
   NIN: type === 'sign-in' ? z.string().optional() : z.string().min(3)
 })
+
+// Define the TypeScript type based on the schema
+export type AuthFormType = z.infer<ReturnType<typeof authformSchema>>;

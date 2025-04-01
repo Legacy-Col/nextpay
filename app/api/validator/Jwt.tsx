@@ -1,4 +1,4 @@
-import * as Jwt from "jsonwebtoken";
+import  Jwt  from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 
 
@@ -13,16 +13,18 @@ export const comparePassword = async (password: string, hash: string) => {
 };
 
 export const generateAccessToken = (user: { email: string }) => {
-    return Jwt.sign(user, SECRET_KEY, {expiresIn: "15min"})
+    return Jwt.sign(user, SECRET_KEY, { expiresIn: "15min" });
 }
 
 export const generatRefreshToken = (user: { email: string }) => {
-    return Jwt.sign(user, SECRET_KEY, {expiresIn: "30d"})
+    // return Jwt.sign(user, SECRET_KEY, {expiresIn: "30d"})
+    return Jwt.sign(user, SECRET_KEY, { expiresIn: "30d" });
 }
 
 export const verifyToken = (token: string) => {
     try {
-        return Jwt.verify(token, SECRET_KEY)
+        // return Jwt.verify(token, SECRET_KEY)
+        return Jwt.verify(token, SECRET_KEY);
     } catch (error) {
         return null
     }

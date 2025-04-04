@@ -5,6 +5,12 @@ import { useState, useEffect, createContext, useContext } from "react";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { AuthFormType } from "@/lib/utils";
+import { showToast } from "@/components/Animatedtoast";
+
+interface DecodedUser {
+    email: string;
+    exp?: number;
+}
 
 interface AuthContextType {
     user: any;
@@ -17,7 +23,7 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<DecodedUser | null>(null);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
@@ -30,11 +36,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                     return;
                 }
 
-                const decodedUser: any = jwtDecode(token);
+                const decodedUser: DecodedUser = jwtDecode(token);
 
                 // Ensure token has an expiration field before checking
                 if (decodedUser.exp && decodedUser.exp * 1000 < Date.now()) {
-                    console.warn("Token Expired, Logging out...");
+                    showToast("Token Expired, Logging out...", "info");
                     logout();
                     return;
                 }
@@ -58,8 +64,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             });
 
             const data = await response.json();
+            console.log("Whats the error about:", data)
             if (!response.ok) {
-                setError(data.message || "Sign-up failed");
+                showToast(data.message || "Sign-up failed", "error");
                 return false;
             }
 
@@ -70,11 +77,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
             Cookies.set("token", data.token, { expires: 7 });
             setUser(jwtDecode(data.token));
-            router.push("/");
+            showToast("Sign Up Completed", "success")
+            router.push("/sign-in");
             return true;
         } catch (error: any) {
             console.error("Sign Up failed:", error);
-            setError("An error occurred during sign-up");
+            showToast("An error occurred during sign-up", "error")
             return false;
         }
     };
@@ -91,22 +99,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
             const data = await response.json();
             if (!response.ok) {
-                setError(data.message || "Login failed");
+                showToast(data.message || "Login failed", "error");
                 return false;
             }
 
-            if (!data.token) {
-                setError("No token received");
+            if (!data.accessToken) {
+                showToast("No token received", "error")
                 return false;
             }
 
-            Cookies.set("token", data.token, { expires: 7 });
-            setUser(jwtDecode(data.token));
+            Cookies.set("token", data.accessToken, { expires: 7 });
+            setUser(jwtDecode(data.accessToken));
+            showToast("Login Successfull.", "success")
             router.push("/");
             return true;
         } catch (error: any) {
             console.error("Login Failed:", error);
-            setError("An error occurred during sign-in");
+            showToast("An error occurred during sign-in", "error");
             return false;
         }
     };
@@ -123,6 +132,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             {children}
         </AuthContext.Provider>
     );
+
 };
 
 // Custom Hook

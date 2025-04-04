@@ -93,7 +93,7 @@ const AuthForm = ({ type }: { type: string }) => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               {type === 'sign-up' &&
                 <>
-                  <div className="flex gap-2">
+                  <div className="flex gap-4 space-x-6">
                     <CustomForm
                       control={form.control} name='firstName' label='firstName' placeholder="Enter First Name"
                     />
@@ -104,7 +104,7 @@ const AuthForm = ({ type }: { type: string }) => {
                   <CustomForm
                     control={form.control} name='address' label='Address' placeholder="Enter Address"
                   />
-                  <div className="flex gap-2">
+                  <div className="flex gap-4 space-x-6">
                     <CustomForm
                       control={form.control} name='dateOfBirth' label='DOB' placeholder="YYYY / MM / DD"
                     />
@@ -112,7 +112,7 @@ const AuthForm = ({ type }: { type: string }) => {
                       control={form.control} name='stateOfOrigin' label='SOO' placeholder="State"
                     />
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-4 space-x-6">
                     <CustomForm
                       control={form.control} name='BVN' label='BVN' placeholder="Enter BVN"
                     />
@@ -146,7 +146,7 @@ const AuthForm = ({ type }: { type: string }) => {
             </form>
           </Form>
 
-          <footer className="flex gap-1 justify-center">
+          <footer className="flex gap-1 text-right">
             <p>{
               type === 'sign-in'
                 ? "Don't have an account?"

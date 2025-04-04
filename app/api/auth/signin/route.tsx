@@ -1,6 +1,6 @@
 import { authformSchema } from "@/lib/utils";
 import { NextResponse } from "next/server";
-import { generateAccessToken, generatRefreshToken, comparePassword } from "../../validator/Jwt";
+import { generateAccessToken, generateRefreshToken, comparePassword } from "../../validator/Jwt";
 import connectedDb from "@/lib/connectedDb";
 import User from "@/model/User";
 
@@ -31,14 +31,15 @@ export async function POST(req: Request) {
 
         //Token Generation
         const accessToken = generateAccessToken({ email: user.email });
-        const refreshToken = generatRefreshToken({ email: user.email });
+        const refreshToken = generateRefreshToken({ email: user.email });
 
         console.log("Login Success:", { email: user.email });
 
         return NextResponse.json({ accessToken, refreshToken }, { status: 200 });
 
     } catch (error: any) {
-        console.log("Sign Inerror:", error.message);
+        console.log("SignIn error:", error.message);
         return NextResponse.json({ message: "Invalid Information", error: error.message }, { status: 400 });
+
     }
 }

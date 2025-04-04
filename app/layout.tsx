@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { Montserrat, Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { ToastContainer } from "react-toastify";
 
 const montserratSans = Montserrat({
   variable: "--font-monserrat-sans-serif",
   subsets: ["latin"],
 });
 
-const  interSans= Inter({
+const interSans = Inter({
   variable: "--font-inter",
   subsets: ["latin"]
 });
@@ -34,6 +35,7 @@ export default function RootLayout({
         <AuthProvider>
           {children}
         </AuthProvider>
+        <ToastContainer position="top-right" />
       </body>
     </html>
   );

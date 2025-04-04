@@ -44,7 +44,7 @@ declare interface MobileMenuProps  {
 declare interface RightSideBarProps {
     banks: Array
     transactions: Array
-    user: User
+    user: UserSummary
 }
 
 declare interface CreditCardProps {
@@ -75,3 +75,4 @@ declare type AuthContextType = {
     user: User
     signup: (email: string, password: string) => Promise<void>;
 }
+

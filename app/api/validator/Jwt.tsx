@@ -1,4 +1,4 @@
-import  Jwt  from "jsonwebtoken";
+import Jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 
 
@@ -16,7 +16,7 @@ export const generateAccessToken = (user: { email: string }) => {
     return Jwt.sign(user, SECRET_KEY, { expiresIn: "15min" });
 }
 
-export const generatRefreshToken = (user: { email: string }) => {
+export const generateRefreshToken = (user: { email: string }) => {
     // return Jwt.sign(user, SECRET_KEY, {expiresIn: "30d"})
     return Jwt.sign(user, SECRET_KEY, { expiresIn: "30d" });
 }

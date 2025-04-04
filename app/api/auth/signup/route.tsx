@@ -1,9 +1,8 @@
 import { authformSchema } from "@/lib/utils";
-import { comparePassword, generateAccessToken, generatRefreshToken, hashPassword } from "../../validator/Jwt";
+import { generateAccessToken, generateRefreshToken, hashPassword } from "../../validator/Jwt";
 import { NextResponse } from "next/server";
 import connectedDB from "@/lib/connectedDb";
 import UserModel from "@/model/User";
-
 
 export async function POST(req: Request) {
   try {
@@ -17,15 +16,16 @@ export async function POST(req: Request) {
     // Check if user already exists
     const existingUser = await UserModel.findOne({ email: userSignUp.email });
     if (existingUser) {
-      return NextResponse.json({ message: "User already exists. please check your email or password" }, { status: 409 });
+      return NextResponse.json({ message: "User already exists. Please try signing in instead." }, { status: 409 });
     }
 
-    const hashedPassword = await hashPassword(userSignUp.password)
+    // ✅ Hash the password before saving it
+    const hashedPassword = await hashPassword(userSignUp.password);
 
     // Create New User
     const newUser = new UserModel({
       email: userSignUp.email,
-      password: userSignUp.password,
+      password: hashedPassword, // ✅ Corrected
       dateOfBirth: userSignUp.dateOfBirth,
       stateOfOrigin: userSignUp.stateOfOrigin,
       BVN: userSignUp.BVN,
@@ -37,8 +37,9 @@ export async function POST(req: Request) {
 
     await newUser.save();
 
+    // ✅ Corrected function name for refresh token
     const accessToken = generateAccessToken({ email: newUser.email });
-    const refreshToken = generatRefreshToken({ email: newUser.email });
+    const refreshToken = generateRefreshToken({ email: newUser.email });
 
     return NextResponse.json({ message: "Account created successfully", token: accessToken, refreshToken }, { status: 201 });
 
@@ -47,4 +48,3 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "Invalid Information", error: error.message }, { status: 400 });
   }
 }
-

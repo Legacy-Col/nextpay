@@ -5,6 +5,7 @@ import BalanceBox from "./BalanceBox";
 import HeaderBox from "./HeaderBox";
 import RightSidebar from "./RightSidebar";
 import { showToast } from "./Animatedtoast";
+import { GET } from "@/app/api/auth/user/route";
 
 interface LoggedInfo {
     firstName: string;
@@ -20,7 +21,22 @@ export default function LoggedUser() {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const response = await fetch("/api/auth/user");
+
+                const token = document.cookie.
+                    split(";")
+                    .find(row => row.startsWith("tokent="))
+                    ?.split("=")[1];
+
+                if (!token) {
+                    showToast("User not verified", "info");
+                }
+
+                const response = await fetch("/api/auth/user", {
+                    method: "GET",
+                    headers: { "Authentication": `Bearer${token}` },
+                });
+
+
                 if (!response.ok) {
                     throw new Error("Failed to fetch user data");
                 }

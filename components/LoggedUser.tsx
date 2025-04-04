@@ -23,17 +23,18 @@ export default function LoggedUser() {
             try {
 
                 const token = document.cookie.
-                    split(";")
+                    split("; ")
                     .find(row => row.startsWith("tokent="))
                     ?.split("=")[1];
 
                 if (!token) {
                     showToast("User not verified", "info");
+                    return;
                 }
 
                 const response = await fetch("/api/auth/user", {
                     method: "GET",
-                    headers: { "Authentication": `Bearer${token}` },
+                    headers: { "Authentication": `Bearer ${token}` },
                 });
 
 

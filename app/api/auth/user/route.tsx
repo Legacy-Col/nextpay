@@ -12,7 +12,7 @@ export async function GET(req: Request) {
         if (!userData || !userData.startsWith("Bearer")) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
-        const token = userData.split("")[1];
+        const token = userData.split(" ")[1];
 
         const decoded: any = Jwt.verify(token, process.env.JWT_SECRET_KEY!)
 
@@ -26,6 +26,8 @@ export async function GET(req: Request) {
         if (!user) {
             return NextResponse.json({ message: "User Not Found" }, { status: 404 })
         }
+
+        return NextResponse.json({ user }, { status: 200 });
 
     } catch (error) {
         console.error("Error fetching UserInfo", error);
